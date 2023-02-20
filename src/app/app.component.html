@@ -1,0 +1,95 @@
+<header class="jumbotron" style="padding:2%;">
+  <h3 class="text-center">Premium Calculator</h3>
+</header>
+<div class="container">
+  <form [formGroup]="registerForm" (ngSubmit)="registerFormSubmit(registerForm.value)">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" formControlName="name" id="name" class="form-control" placeholder="Name" required [ngClass]="{ 'is-invalid': f.name.touched && f.name.errors, 'is-valid': f.name.valid }">
+        <div *ngIf="f.name.touched && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Name is required!</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" [ngClass]="{ 'is-invalid': f.age.touched && f.age.errors, 'is-valid': f.age.valid }" formControlName="age" id="age" class="form-control" placeholder="Age" required>
+        <div *ngIf="f.age.touched && f.age.errors" class="invalid-feedback">
+          <div *ngIf="f.age.errors.required">Age is required!</div>
+          <div *ngIf="f.age.errors.pattern">Numeric Only Accepted!</div>
+          <div *ngIf="f.age.errors.maxlength">Age is not valid format!</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <!-- DOB  -->
+      <div class="form-group">
+        <label for="dob">Date of Birth:</label>
+        <input type="text" [ngClass]="{ 'is-invalid': f.dob.touched && f.dob.errors, 'is-valid': f.dob.valid }" class="form-control" formControlName="dob" id="dob" required placeholder="dd/mm/yyyy"
+        bsDatepicker>
+        <div *ngIf="f.dob.touched && f.dob.errors" class="invalid-feedback">
+          <div *ngIf="f.dob.errors.required">DOB is required!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" [ngClass]="{ 'is-invalid': f.emailId.touched && f.emailId.errors, 'is-valid': f.emailId.valid }" formControlName="emailId" id="email" class="form-control" placeholder="Email" required>
+        <div *ngIf="f.emailId.touched && f.emailId.errors" class="invalid-feedback">
+          <div *ngIf="f.emailId.errors.required">Email is required!</div>
+          <div *ngIf="f.emailId.errors.pattern">Enter Valid Email ID!</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label for="occupation">Occupation:</label>
+        <select class="form-control" (change)="changePremium($event)" formControlName='occupation' id="occupation" required [ngClass]="{ 'is-invalid': f.occupation.touched && f.occupation.errors, 'is-valid': f.occupation.valid }">
+          <option value="" >Select Occupation</option>
+          <option value="Cleaner">Cleaner</option>
+          <option value="Doctor">Doctor</option>
+          <option value="Author">Author</option>
+          <option value="Farmer">Farmer</option>
+          <option value="Mechanic">Mechanic</option>
+          <option value="Florist">Florist</option>
+        </select>
+        <div *ngIf="f.occupation.touched && f.occupation.errors" class="invalid-feedback">
+          <div *ngIf="f.occupation.errors.required">Occupation is required!</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label for="age">Death Sum Insured:</label>
+        <input type="number" [ngClass]="{ 'is-invalid': f.dsii.touched && f.dsii.errors, 'is-valid': f.dsii.valid }" formControlName="dsii" id="dsii" class="form-control" placeholder="Death Sum Insured" required>
+        <div *ngIf="f.dsii.touched && f.dsii.errors" class="invalid-feedback">
+          <div *ngIf="f.dsii.errors.required">Death Sum is required!</div>
+          <div *ngIf="f.dsii.errors.pattern">Numeric Only Accepted!</div>
+          <div *ngIf="f.dsii.errors.maxlength">Death Sum is not valid format!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" *ngIf="amount">Total Premium is {{amount}}</div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary"> Calculate Premium </button>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
+  </div>
+  </form>
+</div>
