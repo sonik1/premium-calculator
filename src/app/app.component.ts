@@ -7,12 +7,14 @@ import {FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule} fr
 })
 export class AppComponent implements OnInit {
   title = 'premium-calculator';
-
+  myDateValue: Date;
   name = 'Angular';
   maxDate = new Date();
+  minDate = this.calculateMaxAge();
   bsConfig = { showWeekNumbers: false, dateInputFormat: 'DD-MMM-YYYY' };
   registerForm: FormGroup;
   amount:any;
+  tpdAmount:any;
   rating:any;
   occupation_list:any = [
     {
@@ -50,7 +52,20 @@ export class AppComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.myDateValue = new Date();
     this.createRegisterForm();
+  }
+  onDateChange(newDate: Date) {
+    console.log(newDate);
+  }
+  calculateMaxAge(){
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() - 70);
+    var year = oneYearFromNow.toLocaleString("default", { year: "numeric" });
+    var month = oneYearFromNow.toLocaleString("default", { month: "2-digit" });
+    var day = oneYearFromNow.toLocaleString("default", { day: "2-digit" });
+    var formattedDate = year + "-" + month + "-" + day;
+    return new Date(formattedDate);
   }
   createRegisterForm() {
     this.registerForm = this.fb.group({
@@ -73,6 +88,8 @@ export class AppComponent implements OnInit {
     this.rating = occupation_rating.factor;
 
     this.amount = (((value.dsii * this.rating * value.age)/1000) * 12);
+
+    this.tpdAmount = (((value.dsii * this.rating * value.age)/1234)).toFixed(2);
   }
 
   changePremium(e) {
@@ -90,6 +107,8 @@ export class AppComponent implements OnInit {
       this.rating = occupation_rating.factor;
 
       this.amount = (((dsi * this.rating * person_age)/1000) * 12);
+
+      this.tpdAmount = (((dsi * this.rating * person_age)/1234)).toFixed(2);
     }
 
   }

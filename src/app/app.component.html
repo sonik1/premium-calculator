@@ -28,8 +28,8 @@
       <!-- DOB  -->
       <div class="form-group">
         <label for="dob">Date of Birth:</label>
-        <input type="text" [ngClass]="{ 'is-invalid': f.dob.touched && f.dob.errors, 'is-valid': f.dob.valid }" class="form-control" formControlName="dob" id="dob" required placeholder="dd/mm/yyyy"
-        bsDatepicker>
+        <input type="text" [ngClass]="{ 'is-invalid': f.dob.touched && f.dob.errors, 'is-valid': f.dob.valid }" class="form-control" formControlName="dob" id="dob" required placeholder="Select date of birth"
+        #dp="bsDatepicker" bsDatepicker [(bsValue)]="myDateValue" [minDate]="minDate" [maxDate]="maxDate">
         <div *ngIf="f.dob.touched && f.dob.errors" class="invalid-feedback">
           <div *ngIf="f.dob.errors.required">DOB is required!</div>
         </div>
@@ -66,7 +66,7 @@
     </div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="form-group">
-        <label for="age">Death Sum Insured:</label>
+        <label for="age">Sum Insured:</label>
         <input type="number" [ngClass]="{ 'is-invalid': f.dsii.touched && f.dsii.errors, 'is-valid': f.dsii.valid }" formControlName="dsii" id="dsii" class="form-control" placeholder="Death Sum Insured" required>
         <div *ngIf="f.dsii.touched && f.dsii.errors" class="invalid-feedback">
           <div *ngIf="f.dsii.errors.required">Death Sum is required!</div>
@@ -79,6 +79,11 @@
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" *ngIf="amount">Total Premium is {{amount}}</div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" *ngIf="amount">TPD Premium monthly {{tpdAmount}}</div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
   </div>
   <br>
